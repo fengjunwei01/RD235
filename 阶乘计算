@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define N 3000
+int main()
+{
+    int j,i,n,U;
+    int a[N]={0};
+    a[N-1]=1;
+    do
+    {
+    printf("请输入你需要计算哪个数的阶乘");
+    U=scanf("%d",&n);//保存scanf的返回值
+    getchar();
+    }
+    while(U==0||n<0);//当scanf的返回值为0或输入的数字为负数时令用户重新输入
+    for(i=2;i<n+1;++i)//使乘数从2变化到n
+    {
+        for(j=0;j<N;j++)//使每个乘数都与数组的每一个元素相乘
+        {
+            a[j]=a[j]*i;
+        }
+        for(j=N-1;j>-1;j--)//相乘后对数组中的每个元素进行进位操作
+        {
+            U=a[j]/10;//利用整型变量截断至整数部分的特点得到进位值
+            a[j-1]=a[j-1]+U;//将进位值加到下一位上
+            a[j]=a[j]%10;//求对应位的值
+        }
+    }
+    printf("阶乘值=\n");
+    for(i=0;i<N;i++)
+    {printf("%d",a[i]);//输出计算结果
+    }
+    printf("输入任意键继续");
+    getchar();//使exe文件不关闭
+    return 0;
+}
+
+
