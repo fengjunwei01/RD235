@@ -26,7 +26,7 @@ struct//蛇的结构体
 int key='w';//全局变量声明
 int ChangeFlag=0;//判断是否撞墙或者撞自己
 int Speed=50;//蛇的移动速度
-
+int count=0;
 ///////////////////////////////////////////////////////////////数据设计部分结束
 
 ///////////////////////////////////////////////////////////////函数功能部分设计开始
@@ -177,11 +177,16 @@ void presskey()
         }
         CreatFood();
         Speed=0.9*Speed;
+        count=count+1;
     }
     }
 void snakestate()
 {
     if((snake.x[0]==0)||(snake.x[0]==Mapwidth)||(snake.y[0]==0)||(snake.y[0]==Maphigh))//判断蛇是否撞墙
+    {
+        ChangeFlag=1;
+    }
+    if(snake.len==50)
     {
         ChangeFlag=1;
     }
@@ -205,7 +210,19 @@ void snakestate()
 int main()
 {
     int a='a';
-    enter:MAPdraw (Maphigh,Mapwidth);
+    int b;
+    int c='a';
+    int d;
+    gotoxy(Mapwidth/2,Maphigh/2);
+    printf("按回车键开始游戏，请用WASD控制方向");
+    do
+    {
+      fflush(stdin);
+      d=getchar();
+    }
+    while(d!='\n');
+    enter:system("cls");
+    MAPdraw (Maphigh,Mapwidth);
     CreatFood();
     while(1)
     {
@@ -219,6 +236,19 @@ int main()
     }
     gotoxy(Mapwidth/2,Maphigh/2);
     printf("GameOver");
-    system("pause");
+    gotoxy(Mapwidth/2,Maphigh/2+1);
+    printf("你吃掉了%d个食物,请按回车键重新开始",count);//重新开始游戏
+    do
+    {
+        c=getchar();
+        fflush(stdin);
+    }
+    while(c!='\n');
+    c='a';
+    ChangeFlag=0;//初始化所有变量
+    Speed=50;
+    key='w';
+    count=0;
+    goto enter;
     return 0;
 }
