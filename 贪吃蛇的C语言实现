@@ -23,8 +23,8 @@ struct//蛇的结构体
 
 }snake;
 
-int key='w';//全局变量声明，初始化蛇的移动方向为向上走
-int ChangeFlag=0;//用于判断是否撞墙或者撞自己
+int key='w';//全局变量声明
+int ChangeFlag=0;//判断是否撞墙或者撞自己
 int Speed=50;//蛇的移动速度
 
 ///////////////////////////////////////////////////////////////数据设计部分结束
@@ -96,10 +96,15 @@ void CreatFood()//画食物
 void presskey()
 {
     int i;
+    int a;
     if(_kbhit())//接收按键
     {
         fflush(stdin);
-        key=_getch();
+        a=_getch();
+        if((a=='w')||(a=='s')||(a=='a')||(a=='d')||(a=='W')||(a=='S')||(a=='D')||(a=='A'))//判断一下键盘输入是否非法，如果合法才传递输入给按键控制
+        {
+        key=a;
+        }
     }
     if(!ChangeFlag)
 {
@@ -200,7 +205,7 @@ void snakestate()
 int main()
 {
     int a='a';
-    MAPdraw (Maphigh,Mapwidth);
+    enter:MAPdraw (Maphigh,Mapwidth);
     CreatFood();
     while(1)
     {
