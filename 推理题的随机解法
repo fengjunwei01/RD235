@@ -1,0 +1,48 @@
+import random
+import collections
+import time
+Answerlist=[0,1,2,3,4,5,6,7,8,9,10]  #创建一个列表，用于盛放10个答案
+TrueF=0   #定义一个条件变量
+Allanswer=[list(),list(),list(),list(),list(),list(),list(),list(),list(),]  #定义一个嵌套空列表存放所有可能的答案
+count=-1 #为正确答案计数
+while(1): #进行无限次循环来寻找正确答案
+    i=1
+    Answerlist[0]='Answer:'
+    while(i<11):
+        Answerlist[i]=random.randint(1,4)
+        i=i+1
+    TrueF=1   #将条件变量置为真，然后进行以下所有判断
+    if Answerlist[2]!=Answerlist[5]:
+        TrueF=0    #判断第二题是否准确
+    if ((Answerlist[3]==1) and ((Answerlist[3]==Answerlist[6])or (Answerlist[3]==Answerlist[2])or (Answerlist[3]==Answerlist[4]))) or ((Answerlist[3]==2) and ((Answerlist[3]==Answerlist[6])or (Answerlist[6]==Answerlist[2])or (Answerlist[6]==Answerlist[4]))) or ((Answerlist[3]==3) and ((Answerlist[2]==Answerlist[3])or (Answerlist[6]==Answerlist[2])or (Answerlist[2]==Answerlist[4])))or(Answerlist[3]==4 and (Answerlist[3]==Answerlist[4]or Answerlist[4]==Answerlist[2]or Answerlist[6]==Answerlist[4])):
+        TrueF=0    #判断第三题是否准确
+    if ((Answerlist[4]==1)and(Answerlist[1]!=Answerlist[5])) or ((Answerlist[4]==2)and(Answerlist[2]!=Answerlist[7])) or ((Answerlist[4]==3)and(Answerlist[1]!=Answerlist[9])) or ((Answerlist[4]==4)and(Answerlist[6]!=Answerlist[10])):
+        TrueF=0    #判断第四题是否准确
+    if ((Answerlist[5]==1)and(Answerlist[5]!=Answerlist[8])) or ((Answerlist[5]==2)and(Answerlist[5]!=Answerlist[4])) or ((Answerlist[5]==3)and(Answerlist[5]!=Answerlist[9])) or ((Answerlist[5]==4)and(Answerlist[5]!=Answerlist[7])):
+        TrueF=0    #判断第五题是否准确
+    if ((Answerlist[6]==1) and ((Answerlist[8]!=Answerlist[2])or(Answerlist[8]!=Answerlist[4]))) or ((Answerlist[6]==2) and ((Answerlist[8]!=Answerlist[1])or(Answerlist[8]!=Answerlist[6]))) or ((Answerlist[6]==3) and ((Answerlist[8]!=Answerlist[3])or(Answerlist[8]!=Answerlist[10]))) or ((Answerlist[6]==4) and ((Answerlist[8]!=Answerlist[5])or(Answerlist[8]!=Answerlist[9]))):
+        TrueF=0    #判断第六题是否准确
+    num_list=[int(Answerlist.count(1)),int(Answerlist.count(2)),int(Answerlist.count(3)),int(Answerlist.count(4))]  #利用count函数统计答案的出现次数
+    sort_num_list=sorted(num_list)                                       #对答案出现次数进行排序
+    if (Answerlist[7])!=(sort_num_list[0]):   #判断第七题答案是否正确
+        TrueF=0
+    if ((Answerlist[8]==1) and ((Answerlist[1]==(Answerlist[7]+1)) and (Answerlist[1]==(Answerlist[7]-1)))) or ((Answerlist[8]==2) and ((Answerlist[1]==(Answerlist[5]+1)) and (Answerlist[1]==(Answerlist[5]-1)))) or ((Answerlist[8]==3) and ((Answerlist[1]==(Answerlist[2]+1)) and (Answerlist[1]==(Answerlist[2]-1)))) or ((Answerlist[8]==4) and ((Answerlist[1]==(Answerlist[10]+1)) and (Answerlist[1]==(Answerlist[10]-1)))):
+        TrueF=0    #判断第八题是否正确
+    if (Answerlist[1]==Answerlist[6])==((Answerlist[9]==1)and (Answerlist[6]==Answerlist[5])) or (Answerlist[1]==Answerlist[6])==((Answerlist[9]==2)and (Answerlist[10]==Answerlist[5])) or (Answerlist[1]==Answerlist[6])==((Answerlist[9]==3)and (Answerlist[2]==Answerlist[5])) or (Answerlist[1]==Answerlist[6])==((Answerlist[9]==4)and (Answerlist[9]==Answerlist[5])):
+        TrueF=0    #判断第九题是否准确
+    if(((sort_num_list[3])-(sort_num_list[0])!=3)and (Answerlist[10]==1)) or (((sort_num_list[3])-(sort_num_list[0])!=2)and (Answerlist[10]==2)) or (((sort_num_list[3])-(sort_num_list[0])!=4)and (Answerlist[10]==3)) or (((sort_num_list[3])-(sort_num_list[0])!=1)and (Answerlist[10]==4)):
+        TrueF=0    #判断第十题是否准确
+    if(TrueF==1):#判断随机生成的答案是否正确
+        i=0
+        Flag=1      #为判断是否重复创建条件变量
+        while i<9:  #判断答案是否和之前搜寻出的答案重复
+            if(Allanswer[i]==Answerlist):
+                Flag=0
+            i=i+1
+        if(Flag):   #如果不重复则将答案放入正确答案列表种，并进行打印
+            count=count+1
+            Allanswer[count]=Answerlist.copy()
+            print("\n")
+            for k in Answerlist:
+                print(k,end='，')
+            print("\n")
