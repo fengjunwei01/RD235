@@ -49,5 +49,12 @@ while(TrueF==0):
 
 
 print("\n")
-print(Answerlist)
+str_answer_change=[str(i) for i in Answerlist]     #将1234转变为ABCD方便阅读
+str_answer_change="".join(str_answer_change)
+str_answer_change=str_answer_change.replace('1','A')
+str_answer_change=str_answer_change.replace('2','B')
+str_answer_change=str_answer_change.replace('3','C')
+str_answer_change=str_answer_change.replace('4','D')
+
+print(str_answer_change)
 print("随机次数：",count)
